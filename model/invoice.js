@@ -9,6 +9,18 @@ const invoiceSchema = new Schema(
       type: String,
       required: true,
     },
+    WarehouseRecipient: {
+      type: String,
+      required: true,
+    },
+    WarehouseSender: {
+      type: String,
+      required: true,
+    },
+    Status: {
+      type: String,
+      required: true,
+    },
   },
   { versionKey: false }
 );
@@ -18,7 +30,7 @@ invoiceSchema.post("save", handleMongooseError);
 const Invoice = model("invoice", invoiceSchema);
 
 const invoiceJoiSchema = Joi.object({
-  number: Joi.string().required(),
+  number: Joi.string().min(14).max(14).required(),
 });
 
 module.exports = {
