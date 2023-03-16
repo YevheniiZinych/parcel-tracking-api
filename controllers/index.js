@@ -1,3 +1,4 @@
 const { getAllOffices } = require("./offices");
+const { getInvoiceNumber } = require("./invoices");
 
-module.exports = { getAllOffices };
+module.exports = { getAllOffices, getInvoiceNumber };

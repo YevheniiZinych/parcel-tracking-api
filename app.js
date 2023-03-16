@@ -5,6 +5,7 @@ const cors = require("cors");
 const app = express();
 
 const officesRouter = require("./routes/api/offices");
+const invoiceRouter = require("./routes/api/invoices");
 
 require("dotenv").config();
 
@@ -15,6 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/offices", officesRouter);
+app.use("/api/invoices", invoiceRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
