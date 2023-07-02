@@ -19,21 +19,43 @@
     }
   ],
   "paths": {
-    "/api/invoices": {
+    "/api/offices?page={currentPage}&limit={limit}": {
       "post": {
-        "tags": ["Invoice"],
-        "summary": "Back location your parcel",
-        "parameters": [],
+        "tags": ["Office"],
+        "summary": "Get post office address by city name",
+        "parameters": [
+          {
+            "name": "currentPage",
+            "in": "path",
+            "description": "Number of page where need to find offices",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "path",
+            "description": "Amount of offices witch need to show",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
-          "description": "TTN number",
+          "description": "City name",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ParcelRequest"
+                "$ref": "#/components/schemas/OfficeRequest"
               }
             }
           }
+        },
+        "schema": {
+          "type": "string"
         },
         "responses": {
           "200": {
@@ -41,21 +63,15 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ParcelResponse"
+                  "$ref": "#/components/schemas/OfficeResponse"
                 }
               }
             }
           },
           "404": {
-            "description": "Not found"
+            "description": "Not Found"
           }
         }
-      }
-    },
-    "/api/offices?page={currentPage}&limit={limit}": {
-      "post:": {
-        "tags": ["Office"],
-        "summary": "Back list of offices by city name"
       }
     }
   },
@@ -129,8 +145,7 @@
             "Reception": {
               "type": "object",
               "description": "Work schedule",
-              "items": {
-                "type": "string",
+              "properties": {
                 "Monday": {
                   "type": "string",
                   "example": "08:00-21:00"
