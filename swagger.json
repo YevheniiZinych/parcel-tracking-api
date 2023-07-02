@@ -73,6 +73,39 @@
           }
         }
       }
+    },
+    "/api/invoices": {
+      "post": {
+        "tags": ["Invoice"],
+        "summary": "Back location your parcel",
+        "parameters": [],
+        "requestBody": {
+          "description": "TTN number",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ParcelRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParcelResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -84,35 +117,32 @@
           "number": {
             "type": "string",
             "description": "Number of parcel",
-            "format": "20450731655055"
+            "example": "20450731655055"
           }
         }
       },
       "ParcelResponse": {
         "type": "object",
-        "items": {
-          "type": "string",
-          "properties": {
-            "WarehouseRecipient": {
-              "type": "string",
-              "description": "From where parcel was sent ",
-              "example": "Відділення №2 (до 30 кг): вул. Квітнева, 1А"
-            },
-            "WarehouseSender": {
-              "type": "string",
-              "description": "From where parcel was took ",
-              "example": "Відділення №11 (до 30 кг): вул. Проскурівського підпілля, 71/1"
-            },
-            "Status": {
-              "type": "string",
-              "description": "From where parcel was took ",
-              "example": "Відправлення отримано"
-            },
-            "Number": {
-              "type": "string",
-              "description": "TTN number",
-              "example": "20450731655055"
-            }
+        "properties": {
+          "WarehouseRecipient": {
+            "type": "string",
+            "description": "From where parcel was sent ",
+            "example": "Відділення №2 (до 30 кг): вул. Квітнева, 1А"
+          },
+          "WarehouseSender": {
+            "type": "string",
+            "description": "From where parcel was took ",
+            "example": "Відділення №11 (до 30 кг): вул. Проскурівського підпілля, 71/1"
+          },
+          "Status": {
+            "type": "string",
+            "description": "From where parcel was took ",
+            "example": "Відправлення отримано"
+          },
+          "Number": {
+            "type": "string",
+            "description": "TTN number",
+            "example": "20450731655055"
           }
         }
       },
