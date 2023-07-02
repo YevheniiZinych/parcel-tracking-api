@@ -37,6 +37,7 @@
         },
         "responses": {
           "200": {
+            "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
@@ -54,53 +55,7 @@
     "/api/offices?page={currentPage}&limit={limit}": {
       "post:": {
         "tags": ["Office"],
-        "summary": "Back list of offices by city name",
-        "parameters": [
-          {
-            "name": "currentPage",
-            "in": "path",
-            "description": "The page on witch to fined list post offices ",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "path",
-            "description": "Number of offices you want to see in one go ",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "TTN number",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OfficeRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "$schema": {
-                  "$ref": "#/components/schemas/OfficeResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found"
-          }
-        }
+        "summary": "Back list of offices by city name"
       }
     }
   },
@@ -120,6 +75,7 @@
       "ParcelResponse": {
         "type": "object",
         "items": {
+          "type": "string",
           "properties": {
             "WarehouseRecipient": {
               "type": "string",
@@ -150,7 +106,7 @@
         "properties": {
           "city": {
             "type": "string",
-            "description": "City name where you need to find ",
+            "description": "City name where you need to find post office ",
             "example": "Київ"
           }
         }
@@ -174,6 +130,7 @@
               "type": "object",
               "description": "Work schedule",
               "items": {
+                "type": "string",
                 "Monday": {
                   "type": "string",
                   "example": "08:00-21:00"
