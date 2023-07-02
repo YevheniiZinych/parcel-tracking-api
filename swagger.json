@@ -1,0 +1,214 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "TrackingPost",
+    "description": "Base URL https://post-office-ixqj.onrender.com"
+  },
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "servers": [{ "url": "https://post-office-ixqj.onrender.com" }],
+  "tags": [
+    {
+      "name": "Invoice",
+      "description": "Find your parcel by TTN"
+    },
+    {
+      "name": "Office",
+      "description": "Find posts office by city name"
+    }
+  ],
+  "paths": {
+    "/api/offices?page={currentPage}&limit={limit}": {
+      "post": {
+        "tags": ["Office"],
+        "summary": "Get post office address by city name",
+        "parameters": [
+          {
+            "name": "currentPage",
+            "in": "path",
+            "description": "Number of page where need to find offices",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "path",
+            "description": "Amount of offices witch need to show",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "City name",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OfficeRequest"
+              }
+            }
+          }
+        },
+        "schema": {
+          "type": "string"
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OfficeResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/invoices": {
+      "post": {
+        "tags": ["Invoice"],
+        "summary": "Back location your parcel",
+        "parameters": [],
+        "requestBody": {
+          "description": "TTN number",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ParcelRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParcelResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ParcelRequest": {
+        "type": "object",
+        "required": ["number"],
+        "properties": {
+          "number": {
+            "type": "string",
+            "description": "Number of parcel",
+            "example": "20450731655055"
+          }
+        }
+      },
+      "ParcelResponse": {
+        "type": "object",
+        "properties": {
+          "WarehouseRecipient": {
+            "type": "string",
+            "description": "From where parcel was sent ",
+            "example": "Відділення №2 (до 30 кг): вул. Квітнева, 1А"
+          },
+          "WarehouseSender": {
+            "type": "string",
+            "description": "From where parcel was took ",
+            "example": "Відділення №11 (до 30 кг): вул. Проскурівського підпілля, 71/1"
+          },
+          "Status": {
+            "type": "string",
+            "description": "From where parcel was took ",
+            "example": "Відправлення отримано"
+          },
+          "Number": {
+            "type": "string",
+            "description": "TTN number",
+            "example": "20450731655055"
+          }
+        }
+      },
+      "OfficeRequest": {
+        "type": "object",
+        "required": ["city"],
+        "properties": {
+          "city": {
+            "type": "string",
+            "description": "City name where you need to find post office ",
+            "example": "Київ"
+          }
+        }
+      },
+      "OfficeResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "type": "string",
+              "description": "Address post office",
+              "example": "Відділення №1 (до 30 кг на одне місце): вул. Пирогівський шлях, 135"
+            },
+            "Number": {
+              "type": "string",
+              "description": "Number of post office",
+              "example": "1"
+            },
+            "Reception": {
+              "type": "object",
+              "description": "Work schedule",
+              "properties": {
+                "Monday": {
+                  "type": "string",
+                  "example": "08:00-21:00"
+                },
+                "Tuesday": {
+                  "type": "string",
+                  "example": "08:00-21:00"
+                },
+                "Wednesday": {
+                  "type": "string",
+                  "example": "08:00-21:00"
+                },
+                "Thursday": {
+                  "type": "string",
+                  "example": "08:00-21:00"
+                },
+                "Friday": {
+                  "type": "string",
+                  "example": "08:00-21:00"
+                },
+                "Saturday": {
+                  "type": "string",
+                  "example": "08:00-21:00"
+                },
+                "Sunday": {
+                  "type": "string",
+                  "example": "08:00-21:00"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

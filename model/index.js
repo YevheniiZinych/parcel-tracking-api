@@ -1,3 +1,4 @@
-const schemas = require("./office");
+const { Office, findOfficeSchema } = require("./office");
+const { Invoice, invoiceJoiSchema } = require("./invoice");
 
-module.exports = schemas;
+module.exports = { Office, findOfficeSchema, Invoice, invoiceJoiSchema };
