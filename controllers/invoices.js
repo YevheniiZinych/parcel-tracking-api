@@ -14,8 +14,6 @@ const getInvoiceNumber = async (req, res) => {
     number,
   });
 
-  console.log(invoiceData);
-
   if (invoiceData.length === 0) {
     const options = {
       apiKey: API_KEY,
